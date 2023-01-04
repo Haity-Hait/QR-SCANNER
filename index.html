@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCANNER APP</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <script src="./qrScript.js"></script>
+    <div style="text-align: center;">
+        <h1 style="font-size: 30px; font-family: cursive; color: royalblue;">Scan a Barcode or a QR-Code to get the URL.</h1>
+        <div id="reader" style="width: 500px; margin: auto;"></div>
+        <div id="show" style="display: none;">
+            <h4>Scanned Result</h4>
+            <p style="color: blue;" id="result"></p>
+            <button onclick="relo()">Scan Again</button>            
+        </div>
+    </div>
+    <script>
+        const html5Qrcode = new Html5Qrcode('reader');
+        const qrCodeSuccess = (decodedText, decodedResult)=>{
+            if(decodedText){
+                document.getElementById('show').style.display = 'block';
+                document.getElementById('result').textContent = decodedText;
+                html5Qrcode.stop();
+            }
+        }
+        const config = {fps:10, qrbox:{width:250, height:250}}
+        html5Qrcode.start({facingMode:"environment"}, config,qrCodeSuccess );
+        function relo(){
+            window.location.reload()
+        }
+    </script>
+    
+</body>
+</html>
